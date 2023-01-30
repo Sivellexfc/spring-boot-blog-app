@@ -1,0 +1,36 @@
+h2 {
+    font-family: "Fira Code Medium";
+    font-weight: 700;
+    font-size: 1.5em;
+    text-transform: uppercase;
+}
+
+h1 {
+    font-family: "Fira Code Medium";
+    font-weight: 1200;
+    font-size: 1.6em;
+    text-transform: uppercase;
+}
+
+h5 {
+    font-family: "Fira Code Medium";
+    font-weight: 400;
+    font-size: 1em;
+    text-transform: uppercase;
+}
+
+h3 {
+    font-family: "Fira Code Medium";
+    font-weight: 400;
+    font-size: 1em;
+    background-color: yellowgreen;
+}
+
+strong{
+    background-color: yellowgreen;
+    font-weight: 700;
+}
+
+p {
+    font-family: "Fira Code Medium";
+}

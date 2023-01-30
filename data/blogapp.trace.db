@@ -1,0 +1,10 @@
+2023-01-29 20:42:01 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXT CHARACTER VARYING(255)": "'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lore... (574)"; SQL statement:
+insert into post (text, created_at, title, id) values (?, ?, ?, ?) [22001-214]
+2023-01-30 00:12:14 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "POSTS" not found; SQL statement:
+SELECT * FROM posts [42102-214]
+2023-01-30 13:04:02 jdbc[33]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT * FROM POST\000d\000a[*]SELECT * FROM ACCOUNT"; SQL statement:
+SELECT * FROM POST
+SELECT * FROM ACCOUNT [42000-214]

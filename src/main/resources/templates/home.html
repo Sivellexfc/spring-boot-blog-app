@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Timeline</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Spring boot Application</h1>
+        <hr />
+
+        <div class="posts-container">
+            <div class="post" th:each="post : ${posts}">
+
+                <h2><a th:href="@{'/post/' + ${post.id}}"
+                       th:text="${post.title}"></a></h2>
+
+                <h5 th:text="'Yayınlanma tarihi ' + ${post.createdAt}">Created At</h5>
+                <h3 th:text="'Tarafından paylaşıldı ' + ${post.account.username}">Created At</h3>
+                <p th:text="${post.body}">body text</p>
+                <br />
+                <hr />
+            </div>
+        </div>
+        <hr />
+        <ul>
+            <li><a th:href="@{register}">Register</a></li>
+            <li><a th:href="@{login}">Login</a></li>
+        </ul>
+    </div>
+</body>
+</html>
