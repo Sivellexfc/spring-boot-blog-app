@@ -8,3 +8,10 @@ SELECT * FROM posts [42102-214]
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT * FROM POST\000d\000a[*]SELECT * FROM ACCOUNT"; SQL statement:
 SELECT * FROM POST
 SELECT * FROM ACCOUNT [42000-214]
+2023-01-31 21:36:04 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT * FROM ACCOUNT ACCOUNT_AUTHORITY [*]POST"; SQL statement:
+SELECT * FROM ACCOUNT ACCOUNT_AUTHORITY POST [42000-214]
+2023-01-31 21:36:14 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT * FROM\000d\000a[*]10 POST"; expected "identifier"; SQL statement:
+SELECT * FROM
+10 POST [42001-214]

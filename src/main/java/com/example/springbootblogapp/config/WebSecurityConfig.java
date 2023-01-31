@@ -15,7 +15,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity(securedEnabled = true,prePostEnabled = true)
 public class WebSecurityConfig {
 
-
         @Bean
         public static PasswordEncoder passwordEncoder(){
             return new BCryptPasswordEncoder();

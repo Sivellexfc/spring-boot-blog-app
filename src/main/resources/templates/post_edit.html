@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div class="container">
+  <h1>Spring Boot Uygulaması</h1>
+  <hr />
+  <form action="#"
+        th:action="@{'/posts/{id}' (id=${post.id})}"
+        th:object="${post}"
+        method="POST">
+
+    <input type="hidden" th:field="*{account}"/>
+    <input type="hidden" th:field="*{createdAt}"/>
+
+    <h2>Yeni gönderi düzenle</h2>
+    <div>
+      <label for="new-post-title">Title</label>
+      <input id="new-post-title" type="text" th:field="*{title}" placeholder="Title">
+    </div>
+    <div>
+      <label for="new-post-body">Body</label>
+      <textarea id="new-post-body" th:field="*{body}" placeholder="Body"></textarea>
+    </div>
+    <button type="submit">Gönderi Yayınla</button>
+  </form>
+
+</div>
+
+</body>
+</html>

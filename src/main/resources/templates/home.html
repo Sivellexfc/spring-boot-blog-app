@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Spring boot Application</h1>
+        <h1>Facelook</h1>
         <hr />
         <ul>
             <li><a th:href="@{/posts/new}">Yeni gönderi oluştur</a></li>
@@ -17,11 +17,12 @@
         <div class="posts-container">
             <div class="post" th:each="post : ${posts}">
 
-                <h2><a th:href="@{'/post/' + ${post.id}}"
+                <h2><a th:href="@{'/posts/' + ${post.id}}"
                        th:text="${post.title}"></a></h2>
 
                 <h5 th:text="'Yayınlanma tarihi ' + ${post.createdAt}">Created At</h5>
                 <h3 th:text="'Tarafından paylaşıldı ' + ${post.account.username}">Created At</h3>
+                <h5 th:text="'Son düzenlenme zamanı ' + ${post.updatedAt}" >Updated Date</h5>
                 <p th:text="${post.body}">body text</p>
                 <br />
                 <hr />
