@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
 <head>
     <meta charset="UTF-8">
     <title>Timeline</title>
@@ -9,7 +11,9 @@
     <div class="container">
         <h1>Spring boot Application</h1>
         <hr />
-
+        <ul>
+            <li><a th:href="@{/posts/new}">Yeni gönderi oluştur</a></li>
+        </ul>
         <div class="posts-container">
             <div class="post" th:each="post : ${posts}">
 
@@ -24,10 +28,23 @@
             </div>
         </div>
         <hr />
-        <ul>
-            <li><a th:href="@{register}">Register</a></li>
+
+        <ul sec:authorize="!isAuthenticated()">
             <li><a th:href="@{login}">Login</a></li>
+            <li><a th:href="@{register}">Register</a></li>
         </ul>
+
+        <div sec:authorize="isAuthenticated()">
+            <form action="#"
+                    th:action="@{/logout}"
+                    method="POST">
+                <div>
+                    <label>Hi, <span sec:authentication="name">Username</span></label>
+                </div>
+                <button type="submit">Logout</button>
+            </form>
+        </div>
+
     </div>
 </body>
 </html>

@@ -1,13 +1,17 @@
 package com.example.springbootblogapp.config;
 
 import com.example.springbootblogapp.models.Account;
+import com.example.springbootblogapp.models.Authority;
 import com.example.springbootblogapp.models.Post;
+import com.example.springbootblogapp.repository.AuthorityRepository;
 import com.example.springbootblogapp.services.AccountService;
 import com.example.springbootblogapp.services.PostServices;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class SeedData implements CommandLineRunner{
@@ -15,9 +19,12 @@ public class SeedData implements CommandLineRunner{
     private final AccountService accountService;
     private final PostServices postServices;
 
-    public SeedData(AccountService accountService, PostServices postServices) {
+    private final AuthorityRepository authorityRepository;
+
+    public SeedData(AccountService accountService, PostServices postServices, AuthorityRepository authorityRepository) {
         this.accountService = accountService;
         this.postServices = postServices;
+        this.authorityRepository = authorityRepository;
     }
 
     @Override
@@ -26,23 +33,44 @@ public class SeedData implements CommandLineRunner{
 
         if(posts.size() == 0){
 
+            Authority user = new Authority();
+            user.setName("ROLE_USER");
+            authorityRepository.save(user);
+
+            Authority admin = new Authority();
+            admin.setName("ROLE_ADMIN");
+            authorityRepository.save(admin);
+
             Account account1 = new Account();
-            account1.setUsername("kaptankadir");
-            account1.setEmail("musluhan01@hotmail.com");
-            account1.setFirstName("musluhan");
-            account1.setLastName("cavus");
+            account1.setUsername("user");
+            account1.setEmail("user@domain.com");
+            account1.setFirstName("firstname");
+            account1.setLastName("lastname");
+            account1.setPassword("1234");
+            Set<Authority> authoritySet1 = new HashSet<>();
+            authorityRepository.findById("ROLE_USER").ifPresent(authoritySet1::add);
+            account1.setAuthorities(authoritySet1);
 
             Account account2 = new Account();
-            account2.setUsername("ocean52");
-            account2.setEmail("djobama1298@hotmail.com");
-            account2.setFirstName("sivfc");
-            account2.setLastName("xmlns");
+            account2.setUsername("admin");
+            account2.setEmail("admin@domain.com");
+            account2.setFirstName("firstname");
+            account2.setLastName("lastname");
+            account2.setPassword("1234");
+            Set<Authority> authoritySet2 = new HashSet<>();
+            authorityRepository.findById("ROLE_ADMIN").ifPresent(authoritySet2::add);
+            account2.setAuthorities(authoritySet2);
 
             Account account3 = new Account();
-            account3.setUsername("yazilimcibirgenc");
-            account3.setEmail("djobama1298@hotmail.com");
-            account3.setFirstName("sivfc");
-            account3.setLastName("xmlns");
+            account3.setUsername("useradmin");
+            account3.setEmail("useradmin@domain.com");
+            account3.setFirstName("firstname");
+            account3.setLastName("lastname");
+            account3.setPassword("1234");
+            Set<Authority> authoritySet3 = new HashSet<>();
+            authorityRepository.findById("ROLE_USER").ifPresent(authoritySet3::add);
+            authorityRepository.findById("ROLE_ADMIN").ifPresent(authoritySet3::add);
+            account3.setAuthorities(authoritySet3);
 
             accountService.save(account1);
             accountService.save(account2);

@@ -20,6 +20,7 @@ public class RegisterController {
     @GetMapping("/register")
     public String getRegisterPage(Model model){
         Account account = new Account();
+
         model.addAttribute("account",account);
         return "register";
     }
