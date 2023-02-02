@@ -1,5 +1,6 @@
 package com.example.springbootblogapp.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
@@ -25,6 +26,7 @@ public class Account {
     private String lastName;
 
     @OneToMany(mappedBy = "account")
+    @JsonIgnore
     @ToString.Exclude
     private List<Post> posts = new ArrayList<>();
 

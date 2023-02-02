@@ -68,7 +68,6 @@ public class SeedData implements CommandLineRunner{
             account3.setLastName("lastname");
             account3.setPassword("1234");
             Set<Authority> authoritySet3 = new HashSet<>();
-            authorityRepository.findById("ROLE_USER").ifPresent(authoritySet3::add);
             authorityRepository.findById("ROLE_ADMIN").ifPresent(authoritySet3::add);
             account3.setAuthorities(authoritySet3);
 

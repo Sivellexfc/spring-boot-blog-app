@@ -1,17 +1,19 @@
 package com.example.springbootblogapp.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
 @AllArgsConstructor
 public class Post {
 
@@ -22,6 +24,7 @@ public class Post {
 
     @Column(name = "TEXT",length = 1200)
     private String body;
+    private int viewCount;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
@@ -31,6 +34,13 @@ public class Post {
                 referencedColumnName = "id",
                 nullable = false)
     private Account account;
+
+    @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
+    private List<Comment> comments;
+
+    public void addComment(Comment comment){
+        this.comments.add(comment);
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -51,9 +61,14 @@ public class Post {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", body='" + body + '\'' +
+                ", viewCount=" + viewCount +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 ", account=" + account +
                 '}';
+    }
+
+    public Post(){
+        this.viewCount = 0;
     }
 }

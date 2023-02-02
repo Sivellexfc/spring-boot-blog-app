@@ -21,9 +21,7 @@ public class MyUserDetailsService implements UserDetailsService {
     public MyUserDetailsService(AccountService accountService) {
         this.accountService = accountService;
     }
-
-
-
+    
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<Account> optionalAccount = accountService.findByEmail(email);
