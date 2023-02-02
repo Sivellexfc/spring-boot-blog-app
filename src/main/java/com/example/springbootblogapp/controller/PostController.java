@@ -1,10 +1,13 @@
 package com.example.springbootblogapp.controller;
 
 import com.example.springbootblogapp.models.Account;
+import com.example.springbootblogapp.models.Authority;
+import com.example.springbootblogapp.models.Comment;
 import com.example.springbootblogapp.models.Post;
 import com.example.springbootblogapp.services.AccountService;
 import com.example.springbootblogapp.services.PostServices;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +17,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Controller
@@ -32,6 +38,10 @@ public class PostController {
         Optional<Post> opitonalPost = postServices.getById(id);
         if(opitonalPost.isPresent()){
             Post post = opitonalPost.get();
+            List<Comment> comments = post.getComments();
+            post.setViewCount(post.getViewCount() + 1);
+            postServices.save(post);
+            model.addAttribute("comments",comments);
             model.addAttribute("post",post);
             return "post";
         }
@@ -40,19 +50,27 @@ public class PostController {
 
     @PostMapping("/posts/{id}")
     @PreAuthorize("isAuthenticated()")
-    public String updatePost(@PathVariable Long id, Post post, BindingResult result, Model model) {
-
+    public String updatePost(@PathVariable Long id, Post post, BindingResult result, Model model, Principal principal) {
+        String authUsername = "anonymousUser";
+        if (principal != null) {
+            authUsername = principal.getName();
+        }
+        Optional<Account> optionalAccount = accountService.findByEmail(authUsername);
         Optional<Post> optionalPost = postServices.getById(id);
-        if (optionalPost.isPresent()) {
+
+        if (optionalPost.isPresent() && optionalPost.get().getAccount() == optionalAccount.get()) {
+            System.out.println("-----------------------------------------------------------");
             Post existingPost = optionalPost.get();
 
             existingPost.setTitle(post.getTitle());
             existingPost.setBody(post.getBody());
+            existingPost.setUpdatedAt(LocalDateTime.now());
 
             postServices.save(existingPost);
+            return "redirect:/posts/" + post.getId();
         }
+        return "404";
 
-        return "redirect:/posts/" + post.getId();
     }
 
     @GetMapping("/posts/new")

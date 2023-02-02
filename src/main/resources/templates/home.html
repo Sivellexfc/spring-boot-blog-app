@@ -5,7 +5,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Timeline</title>
-    <link href="style.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
@@ -21,14 +20,16 @@
                        th:text="${post.title}"></a></h2>
 
                 <h5 th:text="'Yayınlanma tarihi ' + ${post.createdAt}">Created At</h5>
+
+                <div th:if="${post.updatedAt != null}" >
+                    <h5 th:text="'Son düzenlenme zamanı ' + ${post.updatedAt}" >Updated Date</h5>
+                </div>
                 <h3 th:text="'Tarafından paylaşıldı ' + ${post.account.username}">Created At</h3>
-                <h5 th:text="'Son düzenlenme zamanı ' + ${post.updatedAt}" >Updated Date</h5>
                 <p th:text="${post.body}">body text</p>
                 <br />
                 <hr />
             </div>
         </div>
-        <hr />
 
         <ul sec:authorize="!isAuthenticated()">
             <li><a th:href="@{login}">Login</a></li>
@@ -45,7 +46,6 @@
                 <button type="submit">Logout</button>
             </form>
         </div>
-
     </div>
 </body>
 </html>

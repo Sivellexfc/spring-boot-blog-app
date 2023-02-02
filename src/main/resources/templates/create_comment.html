@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div class="container">
+  <h1>Spring Boot Application Create Comment</h1>
+  <hr />
+  <form action="#"
+        th:action="@{/posts/createComment}"
+        th:object="${comment}"
+        method="POST">
+
+    <input type="hidden" th:field="*{account}"/>
+    <input type="hidden" th:field="*{publishedDate}"/>
+    <input type="hidden" th:field="*{getPostIdTemp}"/>
+
+    <h2>Yeni Yorum oluştur</h2>
+    <div>
+      <label for="new-post-body">Body</label>
+      <textarea id="new-post-body" th:field="*{content}" placeholder="Body"></textarea>
+    </div>
+    <button type="submit">Yorum Yayınla</button>
+  </form>
+
+</div>
+
+</body>
+</html>
