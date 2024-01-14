@@ -13,32 +13,15 @@
             <a th:href="${'/'}">Home</a>
             <div class="post">
                 <h2 th:text="${post.title}">Title</h2>
-                <h5 th:text="${post.account.username} + ' Tarafından paylaşıldı'">Created At</h5>
+                <h3 th:text="'Tarafından paylaşıldı ' + ${post.account.username}">Created At</h3>
                 <h5 th:text="'Oluşturulma zamanı ' + ${post.createdAt}" >Created Date</h5>
-
-                <div th:if="${post.updatedAt != null}" >
-                    <h5 th:text="'Son düzenlenme zamanı ' + ${post.updatedAt}" >Updated Date</h5>
-                </div>
-
-                <h5 th:text="'Görüntülenme sayısı ' + ${post.viewCount}" >Updated Date</h5>
+                <h5 th:text="'Son düzenlenme zamanı ' + ${post.updatedAt}" >Updated Date</h5>
                 <p th:text="${post.body}">body post</p>
-
             </div>
 
             <ul sec:authorize="isAuthenticated()">
-                <li><a th:href="@{'/posts/' + ${post.id} + '/edit'}">Düzenle</a></li>
-                <li><a th:href="@{'/posts/' + ${post.id} + '/delete'}">Sil</a></li>
-            </ul>
-
-            <div class="all-classes-container">
-                <div class="post" th:each="comment : ${comments}">
-                    <h2 th:text="${comment.account.username}">Username</h2>
-                    <h5 th:text="'Oluşturulma zamanı ' + ${comment.publishedDate}" >Published date</h5>
-                    <p th:text="${comment.content}">comment content</p>
-                </div>
-            </div>
-            <ul sec:authorize="isAuthenticated()">
-                <li><a th:href="@{'/posts/' + ${post.id} + '/leaveComment'}">Yorum Bırak</a></li>
+                <li><a th:href="@{'/posts/' + ${post.id} + '/edit'}">Edit</a></li>
+                <li><a th:href="@{'/posts/' + ${post.id} + '/delete'}">Delete</a></li>
             </ul>
 
         </div>

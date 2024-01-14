@@ -14,6 +14,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @EnableMethodSecurity(securedEnabled = true,prePostEnabled = true)
 public class WebSecurityConfig {
+
         @Bean
         public static PasswordEncoder passwordEncoder(){
             return new BCryptPasswordEncoder();
@@ -21,10 +22,10 @@ public class WebSecurityConfig {
 
         private static final String[] WHITELIST = {
                 "/register/**",
-                "/h2-console/*",
-                "/",
-                "/api"
+                "/h2-console/**",
+                "/"
         };
+
         @Bean
         public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
             http

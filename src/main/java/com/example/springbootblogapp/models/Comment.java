@@ -1,8 +1,15 @@
 package com.example.springbootblogapp.models;
 
+<<<<<<< HEAD
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+=======
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+>>>>>>> origin/master
 import org.hibernate.Hibernate;
 
 import java.time.LocalDateTime;
@@ -24,7 +31,10 @@ public class Comment {
     private Account account;
 
     @ManyToOne
+<<<<<<< HEAD
     @JsonIgnore
+=======
+>>>>>>> origin/master
     @JoinColumn(name = "post_id")
     private Post post;
 
